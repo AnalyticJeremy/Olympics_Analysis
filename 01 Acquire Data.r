@@ -212,13 +212,13 @@ dir.create("/dbfs/olympics");
 
 for (df_name in names(datasets)) {
   df <- createDataFrame(datasets[[df_name]]);
-  write.df(df, path=paste0("dbfs:/olympics/", df_name), source="delta", mode="overwrite")
+  write.df(df, path=paste0("dbfs:/olympics/raw/", df_name), source="delta", mode="overwrite")
 }
 
 # COMMAND ----------
 
 # MAGIC %python
-# MAGIC display(dbutils.fs.ls("/olympics/"))
+# MAGIC display(dbutils.fs.ls("/olympics/raw"))
 
 # COMMAND ----------
 

@@ -14,14 +14,14 @@ library(SparkR)
 
 # COMMAND ----------
 
-countries <- read.df(path = "/olympics/countries", source = "delta")
-disciplines <- read.df(path = "/olympics/disciplines", source = "delta")
-edition_discipline_medal_summary <- read.df(path = "/olympics/edition_discipline_medal_summary", source = "delta")
-edition_disciplines <- read.df(path = "/olympics/edition_disciplines", source = "delta")
-edition_event_medals <- read.df(path = "/olympics/edition_event_medals", source = "delta")
-edition_events <- read.df(path = "/olympics/edition_events", source = "delta")
-edition_medal_summary <- read.df(path = "/olympics/edition_medal_summary", source = "delta")
-editions <- read.df(path = "/olympics/editions", source = "delta")
+countries <- read.df(path = "/olympics/raw/countries", source = "delta")
+disciplines <- read.df(path = "/olympics/raw/disciplines", source = "delta")
+edition_discipline_medal_summary <- read.df(path = "/olympics/raw/edition_discipline_medal_summary", source = "delta")
+edition_disciplines <- read.df(path = "/olympics/raw/edition_disciplines", source = "delta")
+edition_event_medals <- read.df(path = "/olympics/raw/edition_event_medals", source = "delta")
+edition_events <- read.df(path = "/olympics/raw/edition_events", source = "delta")
+edition_medal_summary <- read.df(path = "/olympics/raw/edition_medal_summary", source = "delta")
+editions <- read.df(path = "/olympics/raw/editions", source = "delta")
 display(editions)
 
 # COMMAND ----------
@@ -45,6 +45,7 @@ display(joined_df |> filter(joined_df$count != joined_df$MedalEventCount))
 # COMMAND ----------
 
 # DBTITLE 1,Medals by Country at Edition
+# Summarize the detailed medal data by country and edition.  Then compare it to the existing summary table and make sure everything matches up.
 sdf <- edition_event_medals |>
           group_by("Country", "EditionID", "Medal") |>
           count() |>
